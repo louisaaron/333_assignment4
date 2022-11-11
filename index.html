@@ -1,12 +1,94 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Registrar's Office Class Search</title>
-    </head>
-    <body>
-    {% include 'header.html' %}
-    {% include 'search_bar.html' %}
-    {% include 'table.html' %}
-    {% include 'footer.html' %}
+    <title>Penny.com</title>
+  </head>
+
+  <body>
+    <hr>
+    Good <span id="ampmSpan"></span> and welcome to
+    <strong>Penny.com</strong>
+    <hr>
+
+    <h1>Author Search</h1>
+    Please enter an author name:
+    <input type="test" id="authorInput" autoFocus>
+    <hr>
+    <p id="resultsParagraph"></p>
+
+    <hr>
+    Date and time: <span id="datetimeSpan"></span><br>
+    Created by <a href="www.google.com">Bob Dondero</a>
+    <hr>
+
+    <script>
+
+      'use strict';
+
+      function getAmPm()
+      {
+        let dateTime =  new Date();
+        let hours = dateTime.getHours();
+        let amPm = 'morning';
+
+        if (hours >= 12)
+          amPm = 'afternoon';
+
+        let ampmSpan = document.getElementById('ampmSpan');
+        ampmSpan.innerHTML = amPm;
+      }
+
+      function getDateTime()
+      {
+        let dateTime = new Date();
+        let daetimeSpan =  document.getElementById('datetimeSpan');
+        datetimeSpan.innerHtml = dateTime.toLocaleString();
+      }
+
+      function usingResponseGetText(resp)
+      {
+        return resp.text();
+      }
+
+      function usingTextUpdateResultsParagraph(text)
+      {
+        let resultsParagraph =
+          document.getElementById('resultsParagraph');
+        resultsParagraph.innerHTML =  text;
+      }
+
+      let controller = null;
+
+      function getResults()
+      {
+        let authorInput = document.getElementById('authorInput');
+        let author = authorInput.value;
+        let encodedAuthor = encodedURIComponent(author);
+        let url = '/searchresults?author=' + encodedAuthor;
+
+        if (controller !== null)
+          controller.abort();
+        controller = new AbortController();
+
+        fetch(url, (signal: controller.signal))
+          .then(usingResponseGetText)
+          .then(usingTextUpdateResultsParagraph)
+          .catch(function(err) (console.log(err);));
+
+      }
+
+      function setup()
+      {
+        getAmPm();
+        window.setInterval(getAmPm, 1000);
+        getDateTime();
+        window.setInerval(getDateTime, 1000);
+        let authorInput = document.getElementById('authorInput');
+        authorInput.addEventListener('input', getResults);
+      }
+
+      document.addEventListener('DOMContentLoaded'), setup);
+
+    </script>
   </body>
 </html>
