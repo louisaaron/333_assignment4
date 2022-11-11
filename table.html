@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th style="text-align-last: left;">ClassId</th>
+    <th style="text-align-last: left;">Dept</th>
+    <th style="text-align-last: left;">Num</th>
+    <th style="text-align-last: left;">Area</th>
+    <th style="text-align-last: left;">Title</th>
+  </tr>
+  {% if classes|length > 0: %}
+     {% for class in classes: %}
+        <tr>
+           <td><a href="/regdetails?classid={{class.id}}">{{class.id}}</a></td>
+           <td>{{class.dept}}</td>
+           <td>{{class.num}}</td>
+           <td>{{class.area}}</td>
+           <td>{{class.title}}</td>
+        </tr>
+     {% endfor %}
+  {% endif %}
+</table>

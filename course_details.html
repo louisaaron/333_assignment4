@@ -1,0 +1,21 @@
+<hr>
+<h2>Course Details (course id {{class_details.id}})</h2>
+
+{% if class_details.dept_num|length == 0: %}
+     (None)
+  {% else %}
+    {% for dept in class_details.dept_num: %}
+     <p><strong>Dept and Number: </strong>{{dept}}</p>
+    {% endfor %}
+  {% endif %}
+<p><strong>Area: </strong>{{class_details.area}}</p>
+<p><strong>Title: </strong>{{class_details.title}}</p>
+<p><strong>Description: </strong>{{class_details.description}}</p>
+<p><strong>Prerequisites: </strong>{{class_details.prereqs}}</p>
+{% if class_details.profs|length == 0: %}
+     (None)
+  {% else %}
+    {% for prof in class_details.profs: %}
+     <p><strong>Professor: </strong>{{prof}}</p>
+    {% endfor %}
+  {% endif %}
