@@ -19,7 +19,6 @@ INDENT_LEN = 23
 
 def get_classes(cursor, query):
     """Returns formatted table of classes"""
-    print("entered get_classes")
     stmt_str = init_stmt_str()
 
     list_args=get_args(query)

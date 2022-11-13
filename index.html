@@ -9,126 +9,83 @@
 
   <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    
+
     <div class="text-center text-white container-fluid pb-4" style="background-color: #295078;">
       <div class="row">
         <h1>Registrar's Office: Class Search</h1>
       </div>
       <div class="row">
-        <div class="col-sm"><input type="text" class="form-control" placeholder="Department" aria-label="Department" id="authorInput"></div>
-        <div class="col-sm"><input type="text" class="form-control" placeholder="Number" aria-label="Number" id="authorInput"></div>
-        <div class="col-sm"><input type="text" class="form-control" placeholder="Area" aria-label="Area" id="authorInput"></div>
-        <div class="col-sm"><input type="text" class="form-control" placeholder="Title" aria-label="Title" id="authorInput"></div>
+        <div class="col-sm"><input type="text" class="form-control" placeholder="Department" aria-label="Department" id="dept"></div>
+        <div class="col-sm"><input type="text" class="form-control" placeholder="Number" aria-label="Number" id="num"></div>
+        <div class="col-sm"><input type="text" class="form-control" placeholder="Area" aria-label="Area" id="area"></div>
+        <div class="col-sm"><input type="text" class="form-control" placeholder="Title" aria-label="Title" id="title"></div>
       </div>
     </div>
 
     <div class="container-fluid m-0">
       <table class="table table-striped table-fit">
-        <tbody>
-          <tr>
-            <th scope="col">ClassId</th>
-            <th scope="col">Dept</th>
-            <th scope="col">Num</th>
-            <th scope="col">Area</th>
-            <th scope="col">Title</th>
-          </tr>
-          <tr>
-            <td>1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Test text goes here, want to see what happens if it's really long. Test text goes here, want to see what happens if it's really long. Test text goes here, want to see what happens if it's really long. Test text goes here, want to see what happens if it's really long.</td>
-          </tr>
-          <tr>
-            <td>2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>@mdo</td>
-          </tr>
-        </tbody>
+        <tbody id="results"></tbody>
       </table>
     </div>
 
     <div class="text-center text-white container-fluid" style="background-color: #295078;">
-      <p>Created by <a href="www.google.com">Louis Aaron</a> and <a href="www.google.com">Max Chan</a></p>
+      <p>Created by Louis Aaron and Max Chan</p>
     </div>
-    
+
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+    </script>
 
     <script>
 
       'use strict';
 
-      function getAmPm()
+      function handleResponse(response)
       {
-        let dateTime =  new Date();
-        let hours = dateTime.getHours();
-        let amPm = 'morning';
-
-        if (hours >= 12)
-          amPm = 'afternoon';
-
-        let ampmSpan = document.getElementById('ampmSpan');
-        ampmSpan.innerHTML = amPm;
+          $('#results').html(response);
       }
 
-      function getDateTime()
-      {
-        let dateTime = new Date();
-        let daetimeSpan =  document.getElementById('datetimeSpan');
-        datetimeSpan.innerHtml = dateTime.toLocaleString();
-      }
-
-      function usingResponseGetText(resp)
-      {
-        return resp.text();
-      }
-
-      function usingTextUpdateResultsParagraph(text)
-      {
-        let resultsParagraph =
-          document.getElementById('resultsParagraph');
-        resultsParagraph.innerHTML =  text;
-      }
-
-      let controller = null;
+      let request = null;
 
       function getResults()
       {
-        let authorInput = document.getElementById('authorInput');
-        let author = authorInput.value;
-        let encodedAuthor = encodedURIComponent(author);
-        let url = '/searchresults?author=' + encodedAuthor;
+        // Accessing information from user-input fields
+        let dept = $('#dept').val();
+        let num = $('#num').val();
+        let area = $('#area').val();
+        let title = $('#title').val();
 
-        if (controller !== null)
-          controller.abort();
-        controller = new AbortController();
+        dept = encodeURIComponent(dept);
+        num = encodeURIComponent(num);
+        area = encodeURIComponent(area);
+        title = encodeURIComponent(title);
 
-        fetch(url, {signal: controller.signal})
-          .then(usingResponseGetText)
-          .then(usingTextUpdateResultsParagraph)
-          .catch(function(err) {console.log(err);});
+        let url = '/searchresults?dept=' + dept;
+        url += '&coursenum=' + num;
+        url += '&area=' + area;
+        url += '&title=' + title;
 
+        if (request != null)
+          request.abort();
+
+        request = $.ajax(
+          {
+            type: 'GET',
+            url: url,
+            success: handleResponse
+          }
+        );
       }
 
       function setup()
       {
-        getAmPm();
-        window.setInterval(getAmPm, 1000);
-        getDateTime();
-        window.setInerval(getDateTime, 1000);
-        let authorInput = document.getElementById('authorInput');
-        authorInput.addEventListener('input', getResults);
+        $('#dept').on('input', getResults);
+        $('#num').on('input', getResults);
+        $('#area').on('input', getResults);
+        $('#title').on('input', getResults);
+        getResults();
       }
 
-      document.addEventListener(('DOMContentLoaded'), setup);
+      $('document').ready(setup);
 
     </script>
   </body>
