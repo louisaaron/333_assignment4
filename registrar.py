@@ -34,20 +34,29 @@ def search_results():
     area = flask.request.args.get('area')
     title = flask.request.args.get('title')
 
-    #error handling for None here
+    try:
+        class_list = old_reg.get_classlist({'d': dept, 'n': coursenum,
+        'a': area, 't': title})
 
-    class_list = old_reg.get_classlist({'d': dept, 'n': coursenum,
-    'a': area, 't': title})
+        html_code = '<tr><th scope="col">ClassId</th><th scope="col">Dept</th><th scope="col">Num</th><th scope="col">Area</th><th scope="col">Title</th></tr>'
+        pattern = '<tr><td><a href="/regdetails?classid=%s" target="_blank">%s</th><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>'
 
-    html_code = '<tr><th scope="col">ClassId</th><th scope="col">Dept</th><th scope="col">Num</th><th scope="col">Area</th><th scope="col">Title</th></tr>'
-    pattern = '<tr><td><a href="/regdetails?classid=%s" target="_blank">%s</th><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>'
+        for singular_class in class_list:
+            html_code += pattern % (singular_class['id'], singular_class['id'], singular_class['dept'], singular_class['num'], singular_class['area'], singular_class['title'])
 
-    for singular_class in class_list:
-        html_code += pattern % (singular_class['id'], singular_class['id'], singular_class['dept'], singular_class['num'], singular_class['area'], singular_class['title'])
+        response = flask.make_response(html_code)
 
-    response = flask.make_response(html_code)
+        return response
 
-    return response
+    except:
+        err = "A server error occured. Please contact the system "
+        err += "administrator."
+        html_code = '<div class="container-fluid m-0 p-0"><p class="p-0 m-0">'
+        html_code += err
+        html_code += '</p></div>'
+
+        response = flask.make_response(html_code)
+        return response
 #-----------------------------------------------------------------------
 
 @app.route('/regdetails', methods=['GET'])
