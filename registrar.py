@@ -78,8 +78,6 @@ def search_results():
         html_code = flask.render_template('error.html', error=err)
         response = flask.make_response(html_code)
         return response
-
-    # class_details = regdetails.get_details(class_id)
     try:
         class_details = regdetails.get_details(class_id)
 
@@ -90,8 +88,8 @@ def search_results():
             # handle errors
 
         else:
+            print('hie')
             cookie = flask.request.cookies.get('prev_search')
-
             html_code = flask.render_template('search_results.html',
             class_details=class_details, class_id=class_id,
             cookie=cookie)
