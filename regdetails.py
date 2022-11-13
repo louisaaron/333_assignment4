@@ -161,6 +161,8 @@ def get_details(classid):
     except Exception as ex:
         error_message = str(sys.argv[0]) + ": " + str(ex)
         print(error_message, file=sys.stderr)
-        sys.exit(1)
+        err = "A server error occured. Please contact the system "
+        err += "administrator."
+        return err
 
     return output
