@@ -103,8 +103,9 @@ def get_classlist(query):
                 output = get_classes(cursor, query)
 
     except Exception as ex:
+        print("Error message handling within old_reg")
         print(ex, file=sys.stderr)
-        sys.exit(1)
+        return ex
 
     return output
 #-----------------------------------------------------------------------

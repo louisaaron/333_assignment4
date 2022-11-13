@@ -34,8 +34,10 @@ def search_results():
     title = flask.request.args.get('title')
 
     try:
+        print("registrar try")
         class_list = old_reg.get_classlist({'d': dept, 'n': coursenum,
         'a': area, 't': title})
+        print("registar after query")
 
         html_code = '<table class="table table-striped table-fit"><tbod'
 
@@ -47,6 +49,8 @@ def search_results():
         pattern += 'blank">%s</th><td>%s</td><td>%s</td><td>%s</td><td>'
         pattern += '%s</td></tr>'
 
+        print('before for loop')
+
         for singular_class in class_list:
             html_code += pattern % (singular_class['id'],
             singular_class['id'], singular_class['dept'],
@@ -55,13 +59,19 @@ def search_results():
 
         html_code += '</tbody></table>'
 
+        print('before response')
+
         response = flask.make_response(html_code)
+
+        print('do we get to response?')
 
         return response
 
     except Exception:
+        print("registar.py error handling")
         err = "A server error occured. Please contact the system "
         err += "administrator."
+
         html_code = '<div class="container-fluid m-0 p-0">'
         html_code += '<p class="p-0 m-0">'
         html_code += err
