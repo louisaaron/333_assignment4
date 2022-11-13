@@ -38,13 +38,21 @@ def search_results():
         class_list = old_reg.get_classlist({'d': dept, 'n': coursenum,
         'a': area, 't': title})
 
-        html_code = '<table class="table table-striped table-fit"><tbody>'
+        html_code = '<table class="table table-striped table-fit"><tbod'
 
-        html_code += '<tr><th scope="col">ClassId</th><th scope="col">Dept</th><th scope="col">Num</th><th scope="col">Area</th><th scope="col">Title</th></tr>'
-        pattern = '<tr><td><a href="/regdetails?classid=%s" target="_blank">%s</th><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>'
+        html_code += 'y><tr><th scope="col">ClassId</th><th scope="col"'
+        html_code += '>Dept</th><th scope="col">Num</th><th scope="col"'
+        html_code += '>Area</th><th scope="col">Title</th></tr>'
+
+        pattern = '<tr><td><a href="/regdetails?classid=%s" target="_'
+        pattern += 'blank">%s</th><td>%s</td><td>%s</td><td>%s</td><td>'
+        pattern += '%s</td></tr>'
 
         for singular_class in class_list:
-            html_code += pattern % (singular_class['id'], singular_class['id'], singular_class['dept'], singular_class['num'], singular_class['area'], singular_class['title'])
+            html_code += pattern % (singular_class['id'],
+            singular_class['id'], singular_class['dept'],
+            singular_class['num'], singular_class['area'],
+            singular_class['title'])
 
         html_code += '</tbody></table>'
 
@@ -55,7 +63,8 @@ def search_results():
     except:
         err = "A server error occured. Please contact the system "
         err += "administrator."
-        html_code = '<div class="container-fluid m-0 p-0"><p class="p-0 m-0">'
+        html_code = '<div class="container-fluid m-0 p-0">'
+        html_code += '<p class="p-0 m-0">'
         html_code += err
         html_code += '</p></div>'
 
