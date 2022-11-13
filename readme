@@ -1,0 +1,15 @@
+maxchan_laaron
+
+Max Chan, Louis Aaron, Assignment 3
+
+As usual, Max and I sat side-by-side to code this complete project (we're roommates!). Our standard setup is to code on one machine, with one driver and one person dictating code -- we find that we can catch many errors this way before they happen. We took turns at the keyboard, with Max working more on re-factoring registrar.py to utilize AJAX via JQuery, and Louis working on reformatting the pages to use Bootstrap and match the new table styling.
+
+We worked together on all error handling and testing. For example, when we were working to handle server errors for the class list versus class details, Max would guide us on where to look within the server files/how to update exceptions, while Louis would guide us on how to restructure the HTML/Bootstrap code so that the error message would appear within the proper HTML hierarchy and style properly.
+
+We did not receive any outside help.
+
+We used websites like Stack Overflow and Boostrap to understand things like how to achieve proper margin and Bootstrap table styling. Of course, we also reference lecture notes and code.
+
+Time on assignment: Approx. 6 hours
+
+We enjoyed the assignment! Was nice to finally feel like we're getting the big picture/seeing it all come together. And Bootstrap is really nice.
