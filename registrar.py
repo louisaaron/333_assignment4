@@ -5,7 +5,6 @@
 # Authors: Max Chan, Louis Aaron
 #-----------------------------------------------------------------------
 
-from urllib.parse import urlencode
 import flask
 import regdetails
 import old_reg
@@ -60,7 +59,7 @@ def search_results():
 
         return response
 
-    except:
+    except Exception:
         err = "A server error occured. Please contact the system "
         err += "administrator."
         html_code = '<div class="container-fluid m-0 p-0">'
