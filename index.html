@@ -1,25 +1,67 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Penny.com</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrar's Office Class Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   </head>
 
   <body>
-    <hr>
-    Good <span id="ampmSpan"></span> and welcome to
-    <strong>Penny.com</strong>
-    <hr>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    
+    <div class="text-center text-white container-fluid pb-4" style="background-color: #295078;">
+      <div class="row">
+        <h1>Registrar's Office: Class Search</h1>
+      </div>
+      <div class="row">
+        <div class="col-sm"><input type="text" class="form-control" placeholder="Department" aria-label="Department" id="authorInput"></div>
+        <div class="col-sm"><input type="text" class="form-control" placeholder="Number" aria-label="Number" id="authorInput"></div>
+        <div class="col-sm"><input type="text" class="form-control" placeholder="Area" aria-label="Area" id="authorInput"></div>
+        <div class="col-sm"><input type="text" class="form-control" placeholder="Title" aria-label="Title" id="authorInput"></div>
+      </div>
+    </div>
 
-    <h1>Author Search</h1>
-    Please enter an author name:
-    <input type="test" id="authorInput" autoFocus>
-    <hr>
-    <p id="resultsParagraph"></p>
+    <div class="container-fluid m-0">
+      <table class="table table-striped table-fit">
+        <tbody>
+          <tr></tr>
+          <tr>
+            <th scope="col">ClassId</th>
+            <th scope="col">Dept</th>
+            <th scope="col">Num</th>
+            <th scope="col">Area</th>
+            <th scope="col">Title</th>
+          </tr>
+          <tr>
+            <td>1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Test text goes here, want to see what happens if it's really long. Test text goes here, want to see what happens if it's really long. Test text goes here, want to see what happens if it's really long. Test text goes here, want to see what happens if it's really long.</td>
+          </tr>
+          <tr>
+            <td>2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <td>3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+            <td>@mdo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <hr>
-    Date and time: <span id="datetimeSpan"></span><br>
-    Created by <a href="www.google.com">Bob Dondero</a>
-    <hr>
+    <div class="text-center text-white container-fluid" style="background-color: #295078;">
+      <p>Created by <a href="www.google.com">Louis Aaron</a> and <a href="www.google.com">Max Chan</a></p>
+    </div>
+    
 
     <script>
 
@@ -70,10 +112,10 @@
           controller.abort();
         controller = new AbortController();
 
-        fetch(url, (signal: controller.signal))
+        fetch(url, {signal: controller.signal})
           .then(usingResponseGetText)
           .then(usingTextUpdateResultsParagraph)
-          .catch(function(err) (console.log(err);));
+          .catch(function(err) {console.log(err);});
 
       }
 
@@ -87,7 +129,7 @@
         authorInput.addEventListener('input', getResults);
       }
 
-      document.addEventListener('DOMContentLoaded'), setup);
+      document.addEventListener(('DOMContentLoaded'), setup);
 
     </script>
   </body>
